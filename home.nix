@@ -1,30 +1,28 @@
-{ config, pkgs, ...}:
+{ config, pkgs, ... }:
 {
   home.username = "chieho";
   home.homeDirectory = "/home/cchong";
-  
-  #don't change after first installation
+
+  # don't change after first installation
   home.stateVersion = "26.05";
 
-  home.packages = with pkgs;[
+  home.packages = with pkgs; [
     (python3.withPackages (ps: with ps; [ websockets ]))
-  wget
-  git
-  keepassxc
-  thunderbird
-  librewolf
-  discord
-  htop
-  libreoffice
-  cava
-  python3
-  smartmontools
-  fastfetch
-  jetbrains-toolbox
-  krita
-  electrum    
+    wget
+    keepassxc
+    thunderbird
+    librewolf
+    discord
+    htop
+    libreoffice
+    cava
+    smartmontools
+    fastfetch
+    jetbrains-toolbox
+    krita
+    electrum
   ];
-  
+
   programs.zsh = {
     enable = true;
     plugins = [
@@ -38,13 +36,12 @@
 
   programs.git = {
     enable = true;
-    userName = "Chie-Ho";
-    userEmail = "chieho.c@tutanota.com";
-    extraConfig = {
+    settings = {
+      user.name = "Chie-Ho";
+      user.email = "chieho.c@tutanota.com";
       init.defaultBranch = "main";
     };
   };
-  
-  programs.home-manager.enable = true;
 
+  programs.home-manager.enable = true;
 }
