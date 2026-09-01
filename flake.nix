@@ -18,7 +18,6 @@
           ./hardware-configuration.nix
           ./configuration.nix
 	  ./jupyter.nix
-	  ./packages.nix
 
 	  home-manager.nixosModules.home-manager
 	  {
