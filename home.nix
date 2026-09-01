@@ -4,7 +4,7 @@
   home.homeDirectory = "/home/cchong";
   
   #don't change after first installation
-  home.stateVersion = "26.05"
+  home.stateVersion = "26.05";
 
   home.packages = with pkgs;[
     
@@ -12,8 +12,8 @@
 
   programs.git = {
     enable = true;
-    userName = "Chie-Ho"
-    userEmail = "chieho.c@tutanota.com"
+    userName = "Chie-Ho";
+    userEmail = "chieho.c@tutanota.com";
     extraConfig = {
       init.defaultBranch = "main";
     };
