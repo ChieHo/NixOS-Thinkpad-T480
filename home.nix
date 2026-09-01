@@ -6,7 +6,7 @@
   #don't change after first installation
   home.stateVersion = "26.05"
 
-  home.packages = with okgs;[
+  home.packages = with pkgs;[
     
   ];
 
