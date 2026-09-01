@@ -7,4 +7,3 @@ result-*
 *.swp
 *~
 .nix-channels
-hardware-configuration.nix 
