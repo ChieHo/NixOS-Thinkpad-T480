@@ -28,6 +28,7 @@ environment.systemPackages = with pkgs; [
     zsh-powerlevel10k
     krita
     electrum
+    tlp
   ];
 
 }
