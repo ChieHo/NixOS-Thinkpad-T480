@@ -21,6 +21,7 @@
     jetbrains-toolbox
     krita
     electrum
+    rpi-imager
   ];
 
   programs.zsh = {
