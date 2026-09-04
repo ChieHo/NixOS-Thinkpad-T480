@@ -7,7 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      ./hardware-configuration.nix, trackpad-nosleep-fix.nix
     ];
   
   boot.kernelPackages = pkgs.linuxPackages_latest;  
