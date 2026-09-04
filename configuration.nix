@@ -9,6 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+  
+  boot.kernelPackages = pkgs.linuxPackages_latest;  
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
