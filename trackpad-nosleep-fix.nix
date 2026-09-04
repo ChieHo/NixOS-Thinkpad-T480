@@ -1,20 +1,57 @@
-# In deine configuration.nix einbauen, oder als eigenes Modul importieren
-# (z.B. imports = [ ./trackpad-nosleep-fix.nix ]; in der configuration.nix)
-
 { config, pkgs, lib, ... }:
 
-{
-  boot.kernelPatches = [
-    {
-      name = "t480-trackpad-nosleep";
-      patch = pkgs.fetchpatch {
+let
+  kernel = config.boot.kernelPackages.kernel;
+
+  rmi-core-patched = pkgs.stdenv.mkDerivation {
+    pname = "rmi-core-patched";
+    version = kernel.version;
+
+    inherit (kernel) src version postPatch nativeBuildInputs;
+
+    kernel_dev = kernel.dev;
+    kernelVersion = kernel.modDirVersion;
+
+    modulePath = "drivers/input/rmi4";
+
+    patches = [
+      (pkgs.fetchpatch {
         url = "https://raw.githubusercontent.com/508LoopDetected/t480-trackpad-nosleep/main/rmi4-nosleep.patch";
-        # Der Hash unten ist ein Platzhalter. Beim ersten `nixos-rebuild switch`
-        # schlägt der Build fehl und zeigt dir den ECHTEN Hash an
-        # (Zeile "got: sha256-XXXXXXXX..."). Den dann hier einfach eintragen
-        # und nochmal `nixos-rebuild switch` ausführen.
         hash = "sha256-CzvwJwmqXMH12fMMIz7Tkt/KhQLeKLk465BO4pzU6Oo=";
-      };
-    }
+      })
+    ];
+
+    buildPhase = ''
+      BUILT_KERNEL=$kernel_dev/lib/modules/$kernelVersion/build
+
+      cp $BUILT_KERNEL/Module.symvers .
+      cp $BUILT_KERNEL/.config .
+      cp $kernel_dev/vmlinux .
+
+      make "-j$NIX_BUILD_CORES" modules_prepare
+      make "-j$NIX_BUILD_CORES" M=$modulePath modules
+    '';
+
+    installPhase = ''
+      make \
+        INSTALL_MOD_PATH="$out" \
+        XZ="xz -T$NIX_BUILD_CORES" \
+        M="$modulePath" \
+        modules_install
+    '';
+
+    meta = {
+      description = "Patched rmi_core kernel module for T480 trackpad";
+      license = lib.licenses.gpl2Only;
+    };
+  };
+in
+{
+  boot.extraModulePackages = [
+    rmi-core-patched
+  ];
+
+  boot.kernelModules = [
+    "rmi_core"
   ];
 }
