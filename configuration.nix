@@ -67,7 +67,9 @@
     layout = "de";
     variant = "";
   };
-
+ 
+  virtualisation.virtualbox.host.enable = true;
+ 
   # Configure console keymap
   console.keyMap = "de";
 
