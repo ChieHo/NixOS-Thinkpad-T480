@@ -7,14 +7,10 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix, trackpad-nosleep-fix.nix
+      ./hardware-configuration.nix 
+      #./trackpad-nosleep-fix.nix
     ];
   
-  boot.kernelPackages = pkgs.linuxPackages_latest;  
-  # boot.kernelParams = [ "psmouse.proto=imps" ];
-  
-  services.libinput.enable = true;
-
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

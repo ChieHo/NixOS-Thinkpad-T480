@@ -13,7 +13,7 @@
         # schlägt der Build fehl und zeigt dir den ECHTEN Hash an
         # (Zeile "got: sha256-XXXXXXXX..."). Den dann hier einfach eintragen
         # und nochmal `nixos-rebuild switch` ausführen.
-        hash = lib.fakeHash;
+        hash = "sha256-CzvwJwmqXMH12fMMIz7Tkt/KhQLeKLk465BO4pzU6Oo=";
       };
     }
   ];
