@@ -7,12 +7,12 @@ let
     pname = "rmi-core-patched";
     version = kernel.version;
 
-    inherit (kernel) src version postPatch nativeBuildInputs;
+    src = kernel.src;
+
+    nativeBuildInputs = kernel.nativeBuildInputs or [];
 
     kernel_dev = kernel.dev;
     kernelVersion = kernel.modDirVersion;
-
-    modulePath = "drivers/input/rmi4";
 
     patches = [
       (pkgs.fetchpatch {
@@ -21,23 +21,21 @@ let
       })
     ];
 
+    postPatch = kernel.postPatch or "";
+
     buildPhase = ''
-      BUILT_KERNEL=$kernel_dev/lib/modules/$kernelVersion/build
+      cp $kernel_dev/lib/modules/$kernelVersion/build/Module.symvers .
+      cp $kernel_dev/lib/modules/$kernelVersion/build/.config .
 
-      cp $BUILT_KERNEL/Module.symvers .
-      cp $BUILT_KERNEL/.config .
-      cp $kernel_dev/vmlinux .
-
-      make "-j$NIX_BUILD_CORES" modules_prepare
-      make "-j$NIX_BUILD_CORES" M=$modulePath modules
+      make -j$NIX_BUILD_CORES modules_prepare
+      make -j$NIX_BUILD_CORES M=drivers/input/rmi4 modules
     '';
 
     installPhase = ''
-      make \
-        INSTALL_MOD_PATH="$out" \
-        XZ="xz -T$NIX_BUILD_CORES" \
-        M="$modulePath" \
-        modules_install
+      mkdir -p $out/lib/modules/$kernelVersion/extra
+
+      cp drivers/input/rmi4/rmi_core.ko \
+        $out/lib/modules/$kernelVersion/extra/
     '';
 
     meta = {
@@ -55,3 +53,4 @@ in
     "rmi_core"
   ];
 }
+
