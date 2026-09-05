@@ -8,7 +8,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix 
-      ./trackpad-nosleep-fix.nix
     ];
   
 
@@ -63,11 +62,15 @@
     layout = "de";
     variant = "";
   };
- 
-  virtualisation.virtualbox.host.enable = true;
- 
+  
   # Configure console keymap
   console.keyMap = "de";
+ 
+  # Enable Bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = false;
+  }; 
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
