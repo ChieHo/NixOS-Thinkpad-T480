@@ -20,7 +20,11 @@
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
  
   #test touchpad
-  boot.kernelParams = [ "psmouse.synaptics_intertouch=0" ];
+  boot.kernelParams = [ "psmouse.synaptics_intertouch=1" ];
+  services.udev.extraHwdb = ''
+    libinput:name:Synaptics TM3471-020:dmi:*svnLENOVO:*:pvrThinkPad*T480*
+     LIBINPUT_MODEL_LENOVO_X220_TOUCHPAD_FW81=1
+  '';
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
