@@ -26,7 +26,7 @@
   boot.kernelModules = ["psmouse"];
   services.xserver.libinput.enable = true;
   boot.kernelParams = [
-    "psmouse.synaptics_intertouch = 0"
+    "psmouse.synaptics_intertouch=0"
   ];
 
   # Enable networking
