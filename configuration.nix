@@ -18,6 +18,9 @@
   boot.initrd.luks.devices."luks-1b6c5f56-c549-4c87-81c1-6a8d749d5d0e".device = "/dev/disk/by-uuid/1b6c5f56-c549-4c87-81c1-6a8d749d5d0e";
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+ 
+  #test touchpad
+  boot.kernelParams = [ "psmouse.synaptics_intertouch=0" ];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -25,6 +28,13 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  
+  # Enable Bluetooth
+  hardware.bluetooth = {
+    enable = true;
+     powerOnBoot = false;
+  }; 
+
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -66,11 +76,6 @@
   # Configure console keymap
   console.keyMap = "de";
  
-  # Enable Bluetooth
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = false;
-  }; 
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
