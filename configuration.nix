@@ -23,6 +23,12 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
+  boot.kernelModules = ["psmouse"];
+  services.xserver.libinput.enable = true;
+  boot.kernelParams = [
+    "psmouse.synaptics_intertouch = 0"
+  ];
+
   # Enable networking
   networking.networkmanager.enable = true;
   
