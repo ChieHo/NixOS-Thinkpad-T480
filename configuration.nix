@@ -32,7 +32,13 @@
      powerOnBoot = false;
   }; 
 
+  services.udev.extraRules = ''
+    ACTION=="add", SUBSYSTEM=="i2c", ATTR{power/control}="on"
+    ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x8086", ATTR{class}=="0x0c8000", ATTR{power/control}="on"
+  '';
 
+
+  
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
 
@@ -132,7 +138,7 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
- 
+  
   
   #Fonts
   fonts = {
