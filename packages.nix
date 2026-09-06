@@ -9,5 +9,6 @@
     kdePackages.qtwebsockets
     mullvad
     #tlp
+    kdePackages.kalk
   ];
 }
