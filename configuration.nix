@@ -79,6 +79,15 @@
     layout = "de";
     variant = "";
   };
+
+  #keyboard logitech mx keys mac
+  services.udev.extraHwdb = ''
+  evdev:name:MX Keys Mac Keyboard:*
+    KEYBOARD_KEY_700e2=leftmeta
+    KEYBOARD_KEY_700e3=leftalt
+    KEYBOARD_KEY_700e6=rightmeta
+    KEYBOARD_KEY_700e7=rightalt
+  '';
   
   # Configure console keymap
   console.keyMap = "de";
