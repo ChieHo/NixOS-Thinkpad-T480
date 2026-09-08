@@ -8,6 +8,7 @@
 
   home.packages = with pkgs; [
     (python3.withPackages (ps: with ps; [ websockets ]))
+    vim
     wget
     keepassxc
     thunderbird
@@ -22,6 +23,13 @@
     krita
     electrum
     rpi-imager
+    syncthing
+    kdePackages.oxygen
+    kdePackages.oxygen-sounds
+    kdePackages.qtwebsockets
+    mullvad
+    tlp
+    kdePackages.kalk
   ];
 
   programs.zsh = {
