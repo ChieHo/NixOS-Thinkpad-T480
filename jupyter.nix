@@ -8,6 +8,7 @@ let
     numpy
     pandas
     scipy
+    scikit-learn
   ]);
 in
 {

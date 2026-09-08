@@ -8,7 +8,7 @@
     kdePackages.oxygen-sounds
     kdePackages.qtwebsockets
     mullvad
-    #tlp
+    tlp
     kdePackages.kalk
   ];
 }
